@@ -4,16 +4,13 @@
             
             <!-- Logo & Header -->
             <div class="text-center">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-900 rounded-xl mb-6">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                    </svg>
-                </div>
+                     <x-application-logo class="w-20 h-20 fill-current text-gray-500 mx-auto" />
+
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">
                     Selamat Datang Kembali
                 </h2>
                 <p class="text-gray-600">
-                    Masuk ke akun KafeAnda Anda
+                    Masuk ke akun
                 </p>
             </div>
 
@@ -76,13 +73,6 @@
                                 name="remember">
                             <span class="ml-2 text-sm font-medium text-gray-700">{{ __('Remember me') }}</span>
                         </label>
-
-                        @if (Route::has('password.request'))
-                            <a class="text-sm font-medium text-gray-600 hover:text-gray-900 transition" 
-                               href="{{ route('password.request') }}">
-                                {{ __('Forgot password?') }}
-                            </a>
-                        @endif
                     </div>
 
                     <!-- Submit Button -->
@@ -95,13 +85,6 @@
                         </button>
                     </div>
                 </form>
-            </div>
-
-            <!-- Footer -->
-            <div class="text-center">
-                <p class="text-sm text-gray-600">
-                    © 2024 KafeAnda. All rights reserved.
-                </p>
             </div>
 
         </div>

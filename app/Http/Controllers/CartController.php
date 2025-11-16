@@ -8,15 +8,23 @@ use App\Models\Setting;
 use Cart;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class CartController extends Controller
 {
     /**
-     * Menambahkan item ke keranjang.
+     * Menambahkan item ke keranjang (dengan support AJAX).
      */
-    public function add(Request $request): RedirectResponse
+    public function add(Request $request): JsonResponse|RedirectResponse
     {
         if (!session()->has('order_details')) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Silakan isi data pemesanan terlebih dahulu.',
+                    'redirect' => route('order.start')
+                ], 403);
+            }
             return redirect()->route('order.start')
                 ->with('error', 'Silakan isi data pemesanan terlebih dahulu.');
         }
@@ -24,6 +32,12 @@ class CartController extends Controller
         $product = Product::find($request->product_id);
 
         if (!$product) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Produk tidak ditemukan.'
+                ], 404);
+            }
             return redirect()->back()->with('error', 'Produk tidak ditemukan.');
         }
 
@@ -39,6 +53,20 @@ class CartController extends Controller
             ]
         ]);
 
+        if ($request->ajax()) {
+            // Hitung total items di cart
+            $cartCount = Cart::session($tableId)->getContent()->count();
+            $cartTotal = Cart::session($tableId)->getTotal();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Item berhasil ditambahkan ke keranjang!',
+                'cart_count' => $cartCount,
+                'cart_total' => number_format($cartTotal, 0, ',', '.'),
+                'product_name' => $product->name
+            ]);
+        }
+
         return redirect()->route('order.menu')->with('success', 'Item berhasil ditambahkan ke keranjang!');
     }
 
@@ -47,7 +75,7 @@ class CartController extends Controller
     /**
      * Menampilkan halaman keranjang belanja dengan perhitungan subtotal, service fee, tax, grand total.
      */
-    public function showCart(): View
+    public function showCart(): View|RedirectResponse
     {
         if (!session()->has('order_details')) {
             return redirect()->route('order.start');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesanan Diterima! - KafeAnda</title>
+    <title>Pesanan Diterima! <br> The Upperside</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@
                     Pesanan Berhasil!
                 </h1>
                 <p class="text-lg text-gray-600">
-                    Terima kasih telah memesan di KafeAnda
+                    Terima kasih telah memesan di The Upperside.
                 </p>
             </div>
             
@@ -147,7 +147,7 @@
                     Selamat menikmati!
                 </p>
                 <p class="text-gray-600 text-sm">
-                    Tim KafeAnda siap melayani Anda dengan sepenuh hati
+                    Tim kami siap melayani Anda dengan sepenuh hati
                 </p>
             </div>
 
